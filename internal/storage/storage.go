@@ -40,7 +40,7 @@ func (s *Storage) CreateTask(name, body string, deadline time.Time) (string, err
 	return resp.Uuid, nil
 }
 
-func (s *Storage) UpdateTask(uuid string, name, body, status *string, deadline *time.Time) error {
+func (s *Storage) UpdateTask(uuid string, name, body *string, status *bool, deadline *time.Time) error {
 	data := UpdateTaskRequest{
 		Uuid:     uuid,
 		Name:     name,
@@ -48,6 +48,7 @@ func (s *Storage) UpdateTask(uuid string, name, body, status *string, deadline *
 		Status:   status,
 		Deadline: deadline,
 	}
+
 	resp := UpdateTaskResponse{}
 	err := s.makeRequest("update", http.MethodPatch, data, &resp)
 	if err != nil {

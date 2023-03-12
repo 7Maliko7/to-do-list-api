@@ -53,6 +53,45 @@ func GetListHandler(w http.ResponseWriter, r *http.Request) {
 	return
 }
 
+func GetUndoneListHandler(w http.ResponseWriter, r *http.Request) {
+	if r.Method == http.MethodGet {
+		list, err := Store.GetListTask()
+		if err != nil {
+			e := ErrResponse{
+				Code:    http.StatusInternalServerError,
+				Message: err.Error(),
+			}
+			makeErrorResponse(w, e)
+			log.Print(err)
+			return
+		}
+		undoneList := make([]storage.Task, 0, len(list.List))
+		for _, v := range list.List {
+			if !v.Status {
+				undoneList = append(undoneList, v)
+			}
+
+		}
+		err = makeResponse(w, undoneList)
+		if err != nil {
+			e := ErrResponse{
+				Code:    http.StatusInternalServerError,
+				Message: err.Error(),
+			}
+			makeErrorResponse(w, e)
+			log.Print(err)
+			return
+		}
+		return
+	}
+	e := ErrResponse{
+		Code:    http.StatusMethodNotAllowed,
+		Message: fmt.Sprintf("expect method GET at /list, got %v", r.Method),
+	}
+	makeErrorResponse(w, e)
+	return
+}
+
 func CreateHandler(w http.ResponseWriter, r *http.Request) {
 	if r.Method == http.MethodPost {
 		task := storage.Task{}

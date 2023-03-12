@@ -15,5 +15,6 @@ func main() {
 	http.HandleFunc("/get", api.GetHandler)
 	http.HandleFunc("/update", api.UpdateHandler)
 	http.HandleFunc("/delete", api.DeleteHandler)
+	http.HandleFunc("/undoneList", api.GetUndoneListHandler)
 	log.Fatal(http.ListenAndServe(":8081", nil))
 }
