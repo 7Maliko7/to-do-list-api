@@ -157,7 +157,7 @@ func GetHandler(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
-		err = makeResponse(w, task)
+		err = makeResponse(w, OneTask)
 		if err != nil {
 			e := ErrResponse{
 				Code:    http.StatusInternalServerError,
