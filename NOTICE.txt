@@ -1,0 +1,10 @@
+To-do-list-api
+Copyright 2023. 7Maliko7
+
+This product includes software developed by:
+
+github.com/go-http-utils/headers
+Copyright (c) 2016 go-http-utils
+--------------------------------------
+
+See LICENSE for terms.
